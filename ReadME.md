@@ -1,8 +1,7 @@
 # < CPU Scheduling Simulator >
 수업 시간에 배운 프로세스의 상태전환(Process State Transitions)과 
-CPU Scheduling에서 여러 가지 Scheduling 기법을 구현하여 시뮬레이션 해 보는 것입니다. 실
-제 process 가 수행하는 것을 정확히 시뮬레이션 하는 것은 여러 가지 어려움이 있기에 CPU 
-Scheduling을 간단한 프로세스 수행 모델 (Process Execution Model) 하에서 구현 합니다.
+CPU Scheduling에서 여러 가지 Scheduling 기법을 구현하여 시뮬레이션 해 보는 것  
+실제 process 가 수행하는 것을 정확히 시뮬레이션 하는 것은 여러 가지 어려움이 있기에 CPU Scheduling을 간단한 프로세스 수행 모델 (Process Execution Model) 하에서 구현  
 ## Process Execution Model
 시뮬레이션 동안 생성될 프로세스의 수행시간, 프로세스의 생성 시간, IO 요청이 발생하는 시간
 과 IO 요청의 처리 시간은 시뮬레이션이 시작하기에 정해지면 각각 다음의 배열에 저장됩니다. procServTime[], procIntArrTime[], ioReqIntArrTime[], ioServTime[].
@@ -81,19 +80,20 @@ Running 프로세스의 CPU를 사용한 시간(serviceTime)이 지정된 프로
 최종 통계자료의 출력물은 printResults() 함수에서 출력하는데 프로세스가 시작해서 (생성되어서) 끝날 때까지의 시간의 모든 프로세스의 평균값과 compute() 연산을 통해 얻어진 두 개의 
 register 값을 더한 모든 프로세스의 평균값이 출력됩니다.
 ## CPU Scheduling Simulator 인자
-SCHEDULING_METHOD : CPU scheduling에서 사용할 알고리즘을 나타낸다. 각각의 스케쥴링은 다음과 같은 번호를 갖는다.
-Round Robin Scheduling = 1, Shortest Job First = 2, Shortes Remaining Time Next = 3, Guaranteed Scheduling = 4, Simple Feedback Scheduling = 5
-NPROC : 시뮬레이션에 생성될 총 프로세스의 수
-NIOREQ : 시뮬레이션 중 생성될 총 IO 요청의 수
-QUANTUM : preemptive 스케쥴링에서 사용될 Quantum 시간
-MIN_INT_ARRTIME, MAX_INT_ARRTIME : 프로세스가 생성될 때 사용되는 process 
-interarrival time의 최소, 최대 시간 값
-MIN_SERVTIME, MAX_SERVTIME : 각 프로세스에 할당 된 수행시간의 최소, 최대 시간 값
-MIN_IO_SERVTIME, MAX_IO_SERVTIME : 각 IO 요청이 발생 했을 때 이 요청이 완료되기 위해 필요한 최소, 최대 시간값
-MIN_IOREQ_INT_ARRTIME : IO 요청이 생성되는 시간 간격 중 최소 시간 값. 참고사항: IO request의 interarrival time은 모든 프로세스의 할당된 수행 시간의 총합
-(totalCPUTime)을 IO 요청의 총수 + 1 (NIOREQ+1)로 나누어 Average IO Request 
-Interarrival Time (ioReqAvgIntArrTime)을 계산합니다. 즉 NIOREQ 개의 IO 요청이 totalCPUTime 기간 동안 발생하므로 IO 요청의 간격이 NIOREQ+1 개 존재한다고 가정합니다.
-따라서 MIN_IOREQ_INT_ARRTIME 이 정해지면 최대 간격의 값은 (ioReqAvgIntArrTime - MIN_IOREQ_INT_ARRTIME)*2+ MIN_IOREQ_INT_ARRTIME 으로 결정됩니다. CPU Scheduling Algorithms
+SCHEDULING_METHOD : CPU scheduling에서 사용할 알고리즘을 나타낸다. 각각의 스케쥴링은 다음과 같은 번호를 갖는다.  
+Round Robin Scheduling = 1, Shortest Job First = 2, Shortes Remaining Time Next = 3, Guaranteed Scheduling = 4, Simple Feedback Scheduling = 5  
+NPROC : 시뮬레이션에 생성될 총 프로세스의 수  
+NIOREQ : 시뮬레이션 중 생성될 총 IO 요청의 수  
+QUANTUM : preemptive 스케쥴링에서 사용될 Quantum 시간  
+MIN_INT_ARRTIME, MAX_INT_ARRTIME : 프로세스가 생성될 때 사용되는 process  
+interarrival time의 최소, 최대 시간 값  
+MIN_SERVTIME, MAX_SERVTIME : 각 프로세스에 할당 된 수행시간의 최소, 최대 시간 값  
+MIN_IO_SERVTIME, MAX_IO_SERVTIME : 각 IO 요청이 발생 했을 때 이 요청이 완료되기 위해 필요한 최소, 최대 시간값  
+MIN_IOREQ_INT_ARRTIME : IO 요청이 생성되는 시간 간격 중 최소 시간 값. 참고사항: IO request의 interarrival time은 모든 프로세스의 할당된 수행 시간의 총합  
+(totalCPUTime)을 IO 요청의 총수 + 1 (NIOREQ+1)로 나누어 Average IO Request   
+Interarrival Time (ioReqAvgIntArrTime)을 계산합니다. 즉 NIOREQ 개의 IO 요청이 totalCPUTime 기간 동안 발생하므로 IO 요청의 간격이 NIOREQ+1 개 존재한다고 가정합니다.  
+따라서 MIN_IOREQ_INT_ARRTIME 이 정해지면 최대 간격의 값은 (ioReqAvgIntArrTime - MIN_IOREQ_INT_ARRTIME)*2+ MIN_IOREQ_INT_ARRTIME 으로 결정됩니다.  
+CPU Scheduling Algorithms  
 ## 다음의 CPU 스케쥴링 알고리즘을 구현합니다.
 ### 가) Round Robin Scheduling
 Ready Queue에 들어오는 순서대로 CPU를 할당 받습니다. Quantum이 아주 크게 설정되면 (예 : INT_MAX) FCFS와 같은 결과를 갖게 됩니다.
